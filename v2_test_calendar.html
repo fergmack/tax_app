@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Duet Date Picker Test</title>
+
+    <!-- Import Duet Date Picker -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@latest/dist/duet/duet.esm.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@latest/dist/duet/themes/default.css"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .test-area {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table th,
+      table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      table th {
+        background-color: #0073e6;
+        color: white;
+      }
+
+      /* Basic customization for the date picker */
+      duet-date-picker {
+        --duet-color-primary: #0073e6;
+        --duet-font: Arial, sans-serif;
+      }
+
+      /* Make the white popup container much smaller */
+      duet-date-picker::part(popup) {
+        width: 70px !important; /* Reduced container width */
+        padding: 2px !important;
+      }
+
+      /* Make the calendar container smaller */
+      duet-date-picker::part(calendar) {
+        width: 70px !important; /* Matches the popup container */
+        font-size: 8px;
+        padding: 0;
+      }
+
+      /* Adjust the calendar header (if visible) */
+      duet-date-picker::part(calendar-header) {
+        font-size: 8px;
+        padding: 2px;
+      }
+
+      /* Shrink individual day cells */
+      duet-date-picker::part(calendar-cell) {
+        width: 14px !important;
+        height: 14px !important;
+        font-size: 6px;
+        line-height: 14px;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Duet Date Picker Test</h1>
+
+      <div class="test-area">
+        <h2>Basic Usage</h2>
+        <duet-date-picker identifier="date1"></duet-date-picker>
+      </div>
+
+      <div class="test-area">
+        <h2>With Min/Max Dates</h2>
+        <duet-date-picker
+          identifier="date2"
+          min="2023-01-01"
+          max="2025-12-31"
+          value="2024-01-15"
+        >
+        </duet-date-picker>
+      </div>
+
+      <div class="test-area">
+        <h2>Date Picker in Table</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="position: relative">
+                <duet-date-picker
+                  identifier="tableDate"
+                  value="2024-02-28"
+                  direction="bottom"
+                  first-day-of-week="1"
+                >
+                </duet-date-picker>
+              </td>
+              <td>Test description</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="test-area">
+        <h2>With Custom Direction</h2>
+        <duet-date-picker identifier="date3" direction="top" value="2024-02-28">
+        </duet-date-picker>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const datePicker = document.querySelector(
+          'duet-date-picker[identifier="date1"]'
+        );
+        datePicker.addEventListener("duetChange", function (event) {
+          console.log("Selected date:", event.detail.value);
+        });
+      });
+    </script>
+  </body>
+</html>

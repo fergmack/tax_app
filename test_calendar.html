@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing Modern Calendar Selectors</title>
+
+    <!-- TUI Date Picker -->
+    <link
+      rel="stylesheet"
+      href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css"
+    />
+
+    <!-- Duet Date Picker -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@latest/dist/duet/duet.esm.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@latest/dist/duet/themes/default.css"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .container {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <label>TUI Date Picker:</label>
+      <div id="tui-datepicker"></div>
+    </div>
+
+    <div class="container">
+      <label>Duet Date Picker:</label>
+      <duet-date-picker identifier="duet-datepicker"></duet-date-picker>
+    </div>
+
+    <div class="container">
+      <label>Material UI Date Picker (see console):</label>
+      <input type="date" id="mui-datepicker" />
+    </div>
+
+    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+
+    <script>
+      // TUI Date Picker
+      new tui.DatePicker("#tui-datepicker", {
+        date: new Date(),
+        input: {
+          element: document.createElement("input"),
+          format: "yyyy-MM-dd",
+        },
+      });
+
+      // Material UI Date Picker (vanilla fallback)
+      document
+        .getElementById("mui-datepicker")
+        .addEventListener("change", function () {
+          console.log("Selected Date:", this.value);
+        });
+    </script>
+  </body>
+</html>
