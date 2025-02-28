@@ -113,3 +113,9 @@ document
         alert("Failed to save expenses.");
       });
   });
+
+document.addEventListener("DOMContentLoaded", function () {
+  for (let i = 0; i < 5; i++) {
+    document.getElementById("addExpenseButton").click();
+  }
+});
