@@ -1,34 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rental Property Manager</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <header>
-        <button id="signInButton">Sign In</button>
+      <button id="signInButton">Sign In</button>
     </header>
     <main>
-        <section id="left-section">
-            <div class="section-box">
-                <h2>Rental Property Income</h2>
-                <p>Income details go here.</p>
-            </div>
-            <div class="section-box">
-                <h2>Rental Property Expenses</h2>
-                <p>Expense details go here.</p>
-            </div>
-        </section>
-        <section id="right-section">
-            <div class="chat-box">
-                <textarea id="chatInput" placeholder="Ask a question..."></textarea>
-                <button id="sendButton">Send</button>
-            </div>
-        </section>
+      <section id="left-section">
+        <div class="section-box">
+          <h2>Select Tax Year</h2>
+          <button
+            id="taxYear2023"
+            class="tax-year-btn"
+            data-start="2023-04-06"
+            data-end="2024-04-05"
+          >
+            Tax Year 2023/24
+          </button>
+          <button
+            id="taxYear2024"
+            class="tax-year-btn"
+            data-start="2024-04-06"
+            data-end="2025-04-05"
+          >
+            Tax Year 2024/25
+          </button>
+        </div>
+        <div class="section-box">
+          <h2>Rental Property Income</h2>
+          <p>Income details go here.</p>
+        </div>
+        <div class="section-box">
+          <h2>Rental Property Expenses</h2>
+          <table id="expenseTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Expense</th>
+                <th>Price (£)</th>
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Expenses dynamically added here -->
+            </tbody>
+          </table>
+          <p>
+            <strong>Total: £<span id="totalAmount">0.00</span></strong>
+          </p>
+          <button id="addExpenseButton">Add Expense</button>
+          <button id="saveExpensesButton">Save Expenses</button>
+        </div>
+      </section>
+      <section id="right-section">
+        <div class="chat-box">
+          <textarea id="chatInput" placeholder="Ask a question..."></textarea>
+          <button id="sendButton">Send</button>
+        </div>
+      </section>
     </main>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
-
