@@ -139,3 +139,58 @@ button {
 .delete-expense:hover {
   background-color: #cc0000;
 }
+
+/* Amounts by Category Table */
+#categoryTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#categoryTable th,
+#categoryTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#categoryTable th {
+  background-color: #0073e6;
+  color: white;
+  font-weight: bold;
+}
+
+#categoryTable tr:hover {
+  background-color: #f8f8f8;
+}
+
+/* Export Buttons */
+.export-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.export-buttons button {
+  background-color: #0073e6;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  flex: 1;
+}
+
+.export-buttons button:hover {
+  background-color: #005bb5;
+}
+
+/* Ask question section */
+#sendButton {
+  background-color: #0073e6; /* Or any color you prefer */
+}

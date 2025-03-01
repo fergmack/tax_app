@@ -57,7 +57,32 @@
           <button id="addExpenseButton">Add Expense</button>
           <button id="saveExpensesButton">Save Expenses</button>
         </div>
+
+        <!-- Grouped by amounts -->
+        <div class="section-box">
+          <h2>Amounts by Category</h2>
+          <table id="categoryTable">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Total Amount (£)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Categories dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="export-buttons">
+          <button id="exportExcel">Download Excel</button>
+          <button id="exportCSV">Download CSV</button>
+          <button id="exportDoc">Download Document</button>
+        </div>
       </section>
+
+      <!-- ^^^ -->
+
       <section id="right-section">
         <div class="chat-box">
           <textarea id="chatInput" placeholder="Ask a question..."></textarea>
@@ -65,6 +90,7 @@
         </div>
       </section>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

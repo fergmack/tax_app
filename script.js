@@ -62,19 +62,55 @@ document
     });
 
     row.querySelector(".expense-price").addEventListener("input", updateTotal);
+    row
+      .querySelector(".expense-category")
+      .addEventListener("change", updateTotal);
+
     row.querySelector(".delete-expense").addEventListener("click", function () {
       row.remove();
       updateTotal();
     });
   });
 
+// function updateTotal() {
+//   let total = 0;
+//   document.querySelectorAll(".expense-price").forEach((input) => {
+//     total += parseFloat(input.value) || 0;
+//   });
+//   document.getElementById("totalAmount").textContent = total.toFixed(2);
+// }
+
+// New grouped by functionality >>>
+
 function updateTotal() {
   let total = 0;
+  const categoryTotals = {};
+
   document.querySelectorAll(".expense-price").forEach((input) => {
-    total += parseFloat(input.value) || 0;
+    const row = input.closest("tr");
+    const price = parseFloat(input.value) || 0;
+    const category = row.querySelector(".expense-category").value;
+
+    total += price;
+    categoryTotals[category] = (categoryTotals[category] || 0) + price;
   });
+
   document.getElementById("totalAmount").textContent = total.toFixed(2);
+  updateCategoryTable(categoryTotals);
 }
+
+function updateCategoryTable(categoryTotals) {
+  const tbody = document.querySelector("#categoryTable tbody");
+  tbody.innerHTML = "";
+
+  Object.entries(categoryTotals).forEach(([category, amount]) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${category}</td><td>£${amount.toFixed(2)}</td>`;
+    tbody.appendChild(row);
+  });
+}
+
+// ^^^ group by functionality
 
 document
   .getElementById("saveExpensesButton")
@@ -118,4 +154,56 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 0; i < 5; i++) {
     document.getElementById("addExpenseButton").click();
   }
+
+  // -- download functionality
+  document.getElementById("exportExcel").addEventListener("click", function () {
+    exportTableToExcel("categoryTable", "Amounts_by_Category");
+  });
+
+  document.getElementById("exportCSV").addEventListener("click", function () {
+    exportTableToCSV("categoryTable", "Amounts_by_Category.csv");
+  });
+
+  document.getElementById("exportDoc").addEventListener("click", function () {
+    exportTableToDoc("categoryTable", "Amounts_by_Category.doc");
+  });
+
+  // Export to Excel
+  function exportTableToExcel(tableID, filename) {
+    let table = document.getElementById(tableID);
+    let wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+    XLSX.writeFile(wb, filename + ".xlsx");
+  }
+
+  // Export to CSV
+  function exportTableToCSV(tableID, filename) {
+    let table = document.getElementById(tableID);
+    let rows = table.querySelectorAll("tr");
+    let csvContent = [];
+
+    rows.forEach((row) => {
+      let cols = row.querySelectorAll("th, td");
+      let rowData = Array.from(cols).map((col) => `"${col.innerText}"`);
+      csvContent.push(rowData.join(","));
+    });
+
+    let csvBlob = new Blob([csvContent.join("\n")], { type: "text/csv" });
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(csvBlob);
+    link.download = filename;
+    link.click();
+  }
+
+  // Export to DOC
+  function exportTableToDoc(tableID, filename) {
+    let table = document.getElementById(tableID);
+    let html = `<table border="1">${table.innerHTML}</table>`;
+    let blob = new Blob(["\ufeff", html], { type: "application/msword" });
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+  }
+
+  // ^^^
 });
